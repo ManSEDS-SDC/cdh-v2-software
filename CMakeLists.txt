@@ -41,6 +41,7 @@ add_subdirectory(cmake/stm32cubemx)
 set(CSP_SYSTEM_NAME freertos CACHE STRING "" FORCE)
 set(CSP_FREERTOS 1 CACHE INTERNAL "")
 set(CSP_POSIX 0 CACHE INTERNAL "")  # disables endian.h
+set(CSP_USE_RTABLE 1 CACHE INTERNAL "")
 
 add_subdirectory(libcsp)
 
@@ -69,6 +70,7 @@ target_link_directories(${CMAKE_PROJECT_NAME} PRIVATE
 target_sources(${CMAKE_PROJECT_NAME} PRIVATE
     # Add user sources here
     CDH/cdh_main.c
+    CDH/cdh_can_driver.c
 )
 
 # Add include paths
