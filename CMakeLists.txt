@@ -37,6 +37,29 @@ add_executable(${CMAKE_PROJECT_NAME})
 # Add STM32CubeMX generated sources
 add_subdirectory(cmake/stm32cubemx)
 
+# Setup libcsp
+set(CSP_SYSTEM_NAME freertos CACHE STRING "" FORCE)
+set(CSP_FREERTOS 1 CACHE INTERNAL "")
+set(CSP_POSIX 0 CACHE INTERNAL "")  # disables endian.h
+
+add_subdirectory(libcsp)
+
+# workaround for libcsp to link freertos correctly
+set_target_properties(csp PROPERTIES
+    LINK_LIBRARIES ""
+    INTERFACE_LINK_LIBRARIES ""
+)
+
+# workaround to provide endian.h for csp
+target_include_directories(csp PUBLIC
+    ${CMAKE_CURRENT_LIST_DIR}/CDH          # where endian.h is located.
+)
+
+# workaround to get csp to link to FreeRTOS
+target_link_libraries(csp PUBLIC
+    stm32cubemx
+)
+
 # Link directories setup
 target_link_directories(${CMAKE_PROJECT_NAME} PRIVATE
     # Add user defined library search paths
@@ -45,11 +68,14 @@ target_link_directories(${CMAKE_PROJECT_NAME} PRIVATE
 # Add sources to executable
 target_sources(${CMAKE_PROJECT_NAME} PRIVATE
     # Add user sources here
+    CDH/cdh_main.c
 )
 
 # Add include paths
 target_include_directories(${CMAKE_PROJECT_NAME} PRIVATE
     # Add user defined include paths
+    CDH
+    libcsp/include
 )
 
 # Add project symbols (macros)
@@ -65,4 +91,5 @@ target_link_libraries(${CMAKE_PROJECT_NAME}
     stm32cubemx
 
     # Add user defined libraries
+    csp
 )
