@@ -71,6 +71,7 @@ target_sources(${CMAKE_PROJECT_NAME} PRIVATE
     # Add user sources here
     CDH/cdh_main.c
     CDH/cdh_can_driver.c
+    CDH/cdh_csp_server.c
 )
 
 # Add include paths

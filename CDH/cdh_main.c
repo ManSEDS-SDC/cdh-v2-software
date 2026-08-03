@@ -1,15 +1,17 @@
 
 #include <csp/csp.h>
-#include "cmsis_os2.h"
 #include "csp/csp_rtable.h"
 #include "csp/csp_types.h"
-#include "projdefs.h"
+
+#include "cmsis_os2.h"
+#include "portmacro.h"
 #include "stm32h7xx_hal.h"
+#include "stm32h7xx_hal_iwdg.h"
+#include "stm32h7xx_hal_sdram.h"
 
 #include "cdh_main.h"
 #include "cdh_can_driver.h"
-#include "stm32h7xx_hal_iwdg.h"
-#include "stm32h7xx_hal_sdram.h"
+
 
 extern ADC_HandleTypeDef hadc1;
 extern ADC_HandleTypeDef hadc2;
@@ -82,8 +84,6 @@ void cdh_main(){
         csp_route_work();
 
         // refresh watchdog
-        HAL_IWDG_Refresh(hiwdg1);
-
-        osDelay(1);
+        HAL_IWDG_Refresh(&hiwdg1);
     }
 }
