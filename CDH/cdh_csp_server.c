@@ -2,11 +2,14 @@
 
 #include "cdh_csp_server.h"
 #include "csp/csp.h"
-#include "csp/csp_buffer.h"
-#include "csp/csp_types.h"
 #include <stdint.h>
 
-struct{ uint8_t port; cdh_csp_service service } services[16] = {0};
+typedef struct port_service_s{ 
+    uint8_t port; 
+    cdh_csp_service service;
+} port_service_t; 
+
+port_service_t services[16];
 
 void cdh_csp_service_add(uint8_t port, cdh_csp_service service)
 {
@@ -14,7 +17,9 @@ void cdh_csp_service_add(uint8_t port, cdh_csp_service service)
     {
         if (services[i].service == 0)
         {
-            services[i] = service;
+            services[i].port = port;
+            services[i].service = service;
+
             break;
         }
     }
