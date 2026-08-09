@@ -9,7 +9,7 @@ typedef struct port_service_s{
     cdh_csp_service service;
 } port_service_t; 
 
-port_service_t services[16];
+port_service_t services[16] = {0};
 
 void cdh_csp_service_add(uint8_t port, cdh_csp_service service)
 {
