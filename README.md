@@ -2,7 +2,9 @@
 
 This project is generated through STM32CubeMX, all user code is contained in CDH folder.
 
-This repository contains code for the C&DH PCB version 2, which is a modular design with an STM32H743ZGT6 and 32MB of SDRAM.
+This repository contains code for the C&DH PCB version 2, which is a modular design with an STM32H743ZGT6 and 32MB of SDRAM. Open MX project for pinout and peripheral configurations.
+
+![](docs/io_diagram_dark.drawio.png)
 
 ## Dependenies
 
